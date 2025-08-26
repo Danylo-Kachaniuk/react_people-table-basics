@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Person } from '../types';
 import { PeopleLink } from './PeopleLink';
 
@@ -16,7 +16,7 @@ export const PeopleItem: React.FC<Props> = ({ people }) => {
         const motherName = person.motherName ? person.motherName : '-';
         const fatherName = person.fatherName ? person.fatherName : '-';
 
-        const { name, slug, sex, born, died, mother, father } = person;
+        const { slug, sex, born, died, mother, father } = person;
 
         return (
           <tr
@@ -27,7 +27,7 @@ export const PeopleItem: React.FC<Props> = ({ people }) => {
             }
           >
             <td>
-              <Link to={`/people/${slug}`}>{name}</Link>
+              <PeopleLink parent={person} />
             </td>
 
             <td>{sex}</td>

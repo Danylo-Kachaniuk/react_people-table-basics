@@ -9,8 +9,8 @@ type Props = {
 export const PeopleLink: React.FC<Props> = ({ parent }) => {
   return (
     <Link
-      className={parent.sex === 'f' ? 'has-text-danger' : ''}
       to={`/people/${parent.slug}`}
+      className={parent.sex === 'f' ? 'has-text-danger' : ''}
     >
       {parent.name}
     </Link>
