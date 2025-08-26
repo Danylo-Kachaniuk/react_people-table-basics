@@ -27,14 +27,14 @@ export const PeopleItem: React.FC<Props> = ({ people }) => {
             }
           >
             <td>
-              <PeopleLink parent={person} />
+              <PeopleLink person={person} />
             </td>
 
             <td>{sex}</td>
             <td>{born}</td>
             <td>{died}</td>
-            <td>{mother ? <PeopleLink parent={mother} /> : motherName}</td>
-            <td>{father ? <PeopleLink parent={father} /> : fatherName}</td>
+            <td>{mother ? <PeopleLink person={mother} /> : motherName}</td>
+            <td>{father ? <PeopleLink person={father} /> : fatherName}</td>
           </tr>
         );
       })}

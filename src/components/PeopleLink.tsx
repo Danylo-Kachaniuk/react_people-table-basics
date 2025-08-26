@@ -3,16 +3,16 @@ import { Person } from '../types';
 import React from 'react';
 
 type Props = {
-  parent: Person;
+  person: Person;
 };
 
-export const PeopleLink: React.FC<Props> = ({ parent }) => {
+export const PeopleLink: React.FC<Props> = ({ person }) => {
   return (
     <Link
-      to={`/people/${parent.slug}`}
-      className={parent.sex === 'f' ? 'has-text-danger' : ''}
+      to={`/people/${person.slug}`}
+      className={person.sex === 'f' ? 'has-text-danger' : ''}
     >
-      {parent.name}
+      {person.name}
     </Link>
   );
 };
