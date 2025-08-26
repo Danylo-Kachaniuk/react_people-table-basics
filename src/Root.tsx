@@ -5,27 +5,24 @@ import {
   Routes,
 } from 'react-router-dom';
 import { App } from './App';
-import { HomePage } from './components/HomePage';
-import { PeoplePage } from './components/PeoplePage';
-import { ErrorPage } from './components/ErrorPage';
-import { PeopleProvider } from './components/PeopleContext';
+import { HomePage } from './pages/HomePage';
+import { PeoplePage } from './pages/PeoplePage';
+import { ErrorPage } from './pages/ErrorPage';
 
 export const Root = () => {
   return (
-    <PeopleProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route index element={<HomePage />} />
-            <Route path="/home" element={<Navigate to="/" replace />} />
-            <Route path="people">
-              <Route index element={<PeoplePage />} />
-              <Route path=":peopleId" element={<PeoplePage />} />
-            </Route>
-            <Route path="*" element={<ErrorPage />} />
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<HomePage />} />
+          <Route path="/home" element={<Navigate to="/" replace />} />
+          <Route path="people">
+            <Route index element={<PeoplePage />} />
+            <Route path=":peopleId" element={<PeoplePage />} />
           </Route>
-        </Routes>
-      </Router>
-    </PeopleProvider>
+          <Route path="*" element={<ErrorPage />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 };

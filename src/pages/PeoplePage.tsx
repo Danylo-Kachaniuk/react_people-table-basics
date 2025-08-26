@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ErrorMessage } from '../components/ErrorMessage';
+import { Loader } from '../components/Loader';
+import { PeopleList } from '../components/PeopleList';
 import { Person } from '../types';
 import { ErrorMassege } from '../types/ErrorMessage';
 import { getPeople } from '../api';
 
-export const PeopleContext = React.createContext<Person[]>([]);
-export const ErrorContext = React.createContext<ErrorMassege | null>(null);
-export const LoaderContext = React.createContext(false);
-
-type Props = {
-  children: React.ReactNode;
-};
-
-export const PeopleProvider: React.FC<Props> = ({ children }) => {
+export const PeoplePage = () => {
   const [people, setPeople] = useState<Person[]>([]);
   const [error, setError] = useState<ErrorMassege | null>(null);
   const [loader, setLoader] = useState(false);
@@ -21,8 +16,14 @@ export const PeopleProvider: React.FC<Props> = ({ children }) => {
     setError(null);
 
     getPeople()
-      .then(setPeople)
-      .catch(() => setError(ErrorMassege.NoPeople))
+      .then(peopleList => {
+        setPeople(peopleList);
+
+        if (peopleList.length === 0) {
+          setError(ErrorMassege.NoPeople);
+        }
+      })
+      .catch(() => setError(ErrorMassege.SomethingWentWrong))
       .finally(() => {
         setPeople(currentPeople =>
           currentPeople.map(currentPerson => {
@@ -54,12 +55,18 @@ export const PeopleProvider: React.FC<Props> = ({ children }) => {
   }, []);
 
   return (
-    <LoaderContext.Provider value={loader}>
-      <ErrorContext.Provider value={error}>
-        <PeopleContext.Provider value={people}>
-          {children}
-        </PeopleContext.Provider>
-      </ErrorContext.Provider>
-    </LoaderContext.Provider>
+    <>
+      <h1 className="title">People Page</h1>
+
+      <div className="block">
+        <div className="box table-container">
+          {loader && <Loader />}
+
+          {error && <ErrorMessage error={error} />}
+
+          {people && !loader && !error && <PeopleList people={people} />}
+        </div>
+      </div>
+    </>
   );
 };

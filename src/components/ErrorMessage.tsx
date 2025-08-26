@@ -1,16 +1,20 @@
-import { useContext } from 'react';
-import { ErrorContext } from './PeopleContext';
+import React from 'react';
+import { ErrorMassege } from '../types/ErrorMessage';
 
-export const ErrorMessage = () => {
-  const error = useContext(ErrorContext);
+type Props = {
+  error: ErrorMassege;
+};
 
+export const ErrorMessage: React.FC<Props> = ({ error }) => {
   return (
     <>
-      <p data-cy="peopleLoadingError" className="has-text-danger">
-        Something went wrong
-      </p>
-
-      <p data-cy="noPeopleMessage">{error}</p>
+      {error === ErrorMassege.SomethingWentWrong ? (
+        <p data-cy="peopleLoadingError" className="has-text-danger">
+          {error}
+        </p>
+      ) : (
+        <p data-cy="noPeopleMessage">{error}</p>
+      )}
     </>
   );
 };

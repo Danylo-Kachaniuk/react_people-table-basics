@@ -1,6 +1,11 @@
+import { Person } from '../types';
 import { PeopleItem } from './PeopleItem';
 
-export const PeopleList = () => {
+type Props = {
+  people: Person[];
+};
+
+export const PeopleList: React.FC<Props> = ({ people }) => {
   return (
     <table
       data-cy="peopleTable"
@@ -17,7 +22,7 @@ export const PeopleList = () => {
         </tr>
       </thead>
 
-      <PeopleItem />
+      <PeopleItem people={people} />
     </table>
   );
 };
